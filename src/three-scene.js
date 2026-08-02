@@ -278,7 +278,7 @@ export class ThreeScene {
   }
 
   updateGroupPlacement() {
-    const isMobile = window.innerWidth < 768;
+    const isMobile = window.innerWidth < 768 || window.screen.width < 768;
     // (Master coordinates are handled dynamically in animate() to follow cursor)
     
     const scaleVal = isMobile ? 0.78 : 1.35;
@@ -411,7 +411,7 @@ export class ThreeScene {
     this.mouse.x += (this.mouse.targetX - this.mouse.x) * 0.06;
     this.mouse.y += (this.mouse.targetY - this.mouse.y) * 0.06;
 
-    const isMobile = window.innerWidth < 768;
+    const isMobile = window.innerWidth < 768 || window.screen.width < 768;
     // Follow mouse position: ranges up to 25 units horizontally, 14 units vertically on desktop
     const targetPosX = isMobile ? (this.mouse.x * 2.2) : (this.mouse.x * 24);
     const targetPosY = isMobile ? (this.mouse.y * 1.5) : (this.mouse.y * 13);
