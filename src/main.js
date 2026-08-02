@@ -111,4 +111,40 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // 7. Stats Counter Animation
+  const counters = document.querySelectorAll('.counter');
+  let hasCounted = false;
+
+  const countUp = () => {
+    counters.forEach(counter => {
+      const target = +counter.getAttribute('data-target');
+      const duration = 2000; // 2 seconds
+      const increment = target / (duration / 16); // 60fps
+
+      let current = 0;
+      const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+          counter.innerText = Math.ceil(current);
+          requestAnimationFrame(updateCounter);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      updateCounter();
+    });
+  };
+
+  const statsSection = document.getElementById('stats');
+  if (statsSection) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !hasCounted) {
+        hasCounted = true;
+        countUp();
+      }
+    }, { threshold: 0.5 });
+    
+    observer.observe(statsSection);
+  }
 });
